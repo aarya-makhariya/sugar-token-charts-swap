@@ -20,7 +20,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-// Mock data generator for sugar price
+// Base price for sugar in India (INR per kg)
+const BASE_INDIAN_SUGAR_PRICE = 38; // Average price in INR
+
+// Mock data generator for sugar price based on Indian sugar prices
 const generateMockPriceData = (timeFrame: string) => {
   const now = new Date();
   const data = [];
@@ -53,14 +56,21 @@ const generateMockPriceData = (timeFrame: string) => {
       break;
   }
 
-  let currentPrice = basePrice;
+  // Simulate Indian sugar price fluctuations
+  let currentIndianPrice = BASE_INDIAN_SUGAR_PRICE;
+  let currentTokenPrice = basePrice;
+  
   for (let i = points; i >= 0; i--) {
     // Calculate a timestamp for this data point
     const time = new Date(now.getTime() - (i * interval));
     
-    // Generate a random price movement
-    const change = (Math.random() * 2 - 1) * priceVolatility;
-    currentPrice = Math.max(0.01, currentPrice + (basePrice * change));
+    // Generate a random price movement for Indian sugar
+    const indianSugarChange = (Math.random() * 2 - 1) * 0.02; // +/- 2% max change
+    currentIndianPrice = Math.max(30, currentIndianPrice * (1 + indianSugarChange));
+    
+    // Calculate token price based on Indian sugar price (loose correlation)
+    const priceFactor = currentIndianPrice / BASE_INDIAN_SUGAR_PRICE;
+    currentTokenPrice = basePrice * priceFactor * (0.9 + Math.random() * 0.2); // Add some randomness
     
     // Format the time for display
     let formattedTime;
@@ -79,7 +89,8 @@ const generateMockPriceData = (timeFrame: string) => {
     
     data.push({
       time: formattedTime,
-      price: currentPrice.toFixed(4),
+      price: currentTokenPrice.toFixed(4),
+      indianPrice: currentIndianPrice.toFixed(2),
       timestamp: time.getTime(),
     });
   }
@@ -94,6 +105,7 @@ const PriceChart = () => {
   const [priceData, setPriceData] = useState<any[]>([]);
   const [currentPrice, setCurrentPrice] = useState<string>("0.0000");
   const [priceChange, setPriceChange] = useState<number>(0);
+  const [indianSugarPrice, setIndianSugarPrice] = useState<string>(BASE_INDIAN_SUGAR_PRICE.toFixed(2));
   
   useEffect(() => {
     // Initial data load
@@ -106,6 +118,9 @@ const PriceChart = () => {
       const firstPrice = parseFloat(initialData[0].price);
       setCurrentPrice(latestPrice.toFixed(4));
       
+      // Set current Indian sugar price
+      setIndianSugarPrice(initialData[initialData.length - 1].indianPrice);
+      
       // Calculate price change percentage
       const change = ((latestPrice - firstPrice) / firstPrice) * 100;
       setPriceChange(change);
@@ -117,18 +132,26 @@ const PriceChart = () => {
         // Create a copy of the previous data
         const newData = [...prevData];
         
-        // Get the last price
+        // Get the last price and Indian sugar price
         const lastPrice = parseFloat(newData[newData.length - 1].price);
+        const lastIndianPrice = parseFloat(newData[newData.length - 1].indianPrice);
         
-        // Generate a small random change (-1% to +1%)
-        const change = (Math.random() * 0.02 - 0.01) * lastPrice;
-        const newPrice = Math.max(0.01, lastPrice + change);
+        // Generate a small random change for Indian sugar price (-0.5% to +0.5%)
+        const indianPriceChange = (Math.random() * 0.01 - 0.005) * lastIndianPrice;
+        const newIndianPrice = Math.max(30, lastIndianPrice + indianPriceChange);
+        
+        // Calculate new token price based on Indian sugar price
+        const priceFactor = newIndianPrice / BASE_INDIAN_SUGAR_PRICE;
+        const baseSugarTokenPrice = 0.45; // Base price
+        const newPrice = baseSugarTokenPrice * priceFactor * (0.98 + Math.random() * 0.04);
         
         // Update the last data point
         newData[newData.length - 1].price = newPrice.toFixed(4);
+        newData[newData.length - 1].indianPrice = newIndianPrice.toFixed(2);
         
-        // Update current price and change percentage
+        // Update current price, Indian sugar price and change percentage
         setCurrentPrice(newPrice.toFixed(4));
+        setIndianSugarPrice(newIndianPrice.toFixed(2));
         const firstPrice = parseFloat(newData[0].price);
         const priceChangePercent = ((newPrice - firstPrice) / firstPrice) * 100;
         setPriceChange(priceChangePercent);
@@ -150,6 +173,7 @@ const PriceChart = () => {
       const latestPrice = parseFloat(newData[newData.length - 1].price);
       const firstPrice = parseFloat(newData[0].price);
       setCurrentPrice(latestPrice.toFixed(4));
+      setIndianSugarPrice(newData[newData.length - 1].indianPrice);
       const change = ((latestPrice - firstPrice) / firstPrice) * 100;
       setPriceChange(change);
     }
@@ -198,6 +222,9 @@ const PriceChart = () => {
             {timeFrame === "1H" ? "Last hour" : 
              timeFrame === "24H" ? "Last 24 hours" : 
              timeFrame === "7D" ? "Last 7 days" : "Last 30 days"}
+          </p>
+          <p className="text-xs text-zinc-400">
+            Based on Indian sugar price: ₹{indianSugarPrice}/kg
           </p>
         </div>
       </CardHeader>

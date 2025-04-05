@@ -103,7 +103,7 @@ const TokenSwap = () => {
   return (
     <Card className="bg-crypto-card border-zinc-700/30">
       <CardHeader>
-        <CardTitle className="text-lg font-medium">Swap Tokens</CardTitle>
+        <CardTitle className="text-lg font-medium text-white">Swap Tokens</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -131,7 +131,7 @@ const TokenSwap = () => {
                   type="text"
                   value={fromAmount}
                   onChange={(e) => handleFromAmountChange(e.target.value)}
-                  className="border-none bg-transparent text-lg focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-auto"
+                  className="border-none bg-transparent text-lg focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-auto text-white"
                   placeholder="0.0"
                 />
               </div>
@@ -185,7 +185,7 @@ const TokenSwap = () => {
                   type="text"
                   value={toAmount}
                   onChange={(e) => handleToAmountChange(e.target.value)}
-                  className="border-none bg-transparent text-lg focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-auto"
+                  className="border-none bg-transparent text-lg focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-auto text-white"
                   placeholder="0.0"
                 />
               </div>

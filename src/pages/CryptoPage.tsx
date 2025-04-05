@@ -34,9 +34,9 @@ const CryptoPage = () => {
             variant="outline" 
             className="border-zinc-700 text-zinc-400 hover:text-white hover:bg-zinc-800"
           >
-            <Link to="/">
-              Back to Home
-            </Link>
+            <a href="https://eth-holesky.blockscout.com/address/0xa1C9F77bb34086673a313aF507bde95921657A94" target="_blank" rel="noopener noreferrer">
+              See Contract
+            </a>
           </Button>
         </div>
       </header>
