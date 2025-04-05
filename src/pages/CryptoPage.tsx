@@ -23,10 +23,10 @@ const CryptoPage = () => {
           <Link to="/" className="flex items-center gap-2">
             <img 
               src="/sugar-token-logo.svg" 
-              alt="Sugar Token" 
+              alt="SUGARByte" 
               className="h-8 w-8"
             />
-            <span className="font-bold text-xl">Sugar Token</span>
+            <span className="font-bold text-xl">SUGARByte</span>
           </Link>
           
           <Button 
@@ -44,10 +44,11 @@ const CryptoPage = () => {
       <main className="container mx-auto py-8 px-4">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-2">Sugar Token Exchange</h1>
+          <h1 className="text-4xl font-bold mb-2">SUGARByte Exchange</h1>
           <p className="text-zinc-400 max-w-2xl mx-auto">
             Monitor real-time price changes and swap tokens on our decentralized exchange.
           </p>
+          <p className="text-crypto-sugar font-bold mt-2">418 HACKATHON Project</p>
         </div>
         
         {/* Stats Cards */}
@@ -108,7 +109,7 @@ const CryptoPage = () => {
       
       <footer className="border-t border-zinc-800 mt-16 py-8">
         <div className="container mx-auto px-4 text-center text-zinc-500">
-          <p>© 2025 Sugar Token. This is a test cryptocurrency project.</p>
+          <p>© 2025 SUGARByte | 418 HACKATHON Project</p>
         </div>
       </footer>
     </div>

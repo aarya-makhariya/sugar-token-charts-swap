@@ -93,7 +93,7 @@ const PriceChart = () => {
     <Card className="bg-crypto-card border-zinc-700/30">
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-baseline justify-between">
-          <CardTitle className="text-lg font-medium text-white">Sugar Token Price</CardTitle>
+          <CardTitle className="text-lg font-medium text-white">SUGARByte Price</CardTitle>
           <TimeFrameSelector 
             timeFrame={timeFrame}
             onTimeFrameChange={handleTimeFrameChange}

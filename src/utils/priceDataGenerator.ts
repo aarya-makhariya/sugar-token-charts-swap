@@ -9,7 +9,7 @@ export const generateMockPriceData = (timeFrame: string) => {
   let points = 24;
   let interval = 60 * 60 * 1000; // 1 hour in milliseconds
   let priceVolatility = 0.05;
-  let basePrice = 0.45; // Base price for sugar token
+  let basePrice = 0.45; // Base price for SUGARByte token in INR
   
   // Adjust parameters based on timeframe
   switch (timeFrame) {
