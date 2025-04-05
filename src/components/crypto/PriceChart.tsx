@@ -111,7 +111,7 @@ const PriceChart = () => {
       setPriceChange(change);
     }
     
-    // Update price periodically to simulate real-time changes
+    // Update price every second to simulate real-time changes
     const intervalId = setInterval(() => {
       setPriceData(prevData => {
         // Create a copy of the previous data
@@ -120,8 +120,8 @@ const PriceChart = () => {
         // Get the last price
         const lastPrice = parseFloat(newData[newData.length - 1].price);
         
-        // Generate a small random change (-2% to +2%)
-        const change = (Math.random() * 0.04 - 0.02) * lastPrice;
+        // Generate a small random change (-1% to +1%)
+        const change = (Math.random() * 0.02 - 0.01) * lastPrice;
         const newPrice = Math.max(0.01, lastPrice + change);
         
         // Update the last data point
@@ -135,7 +135,7 @@ const PriceChart = () => {
         
         return newData;
       });
-    }, 3000);
+    }, 1000); // Update every second
     
     return () => clearInterval(intervalId);
   }, [timeFrame]);
@@ -163,7 +163,7 @@ const PriceChart = () => {
     <Card className="bg-crypto-card border-zinc-700/30">
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-baseline justify-between">
-          <CardTitle className="text-lg font-medium">Sugar Token Price</CardTitle>
+          <CardTitle className="text-lg font-medium text-white">Sugar Token Price</CardTitle>
           <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
             {timeFrameOptions.map((option) => (
               <Button
@@ -186,7 +186,7 @@ const PriceChart = () => {
         
         <div className="mt-4 space-y-1">
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold">${currentPrice}</span>
+            <span className="text-3xl font-bold text-white">${currentPrice}</span>
             <span className={cn(
               "text-sm font-medium",
               isPositiveChange ? "text-crypto-success" : "text-crypto-danger"

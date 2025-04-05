@@ -21,7 +21,7 @@ const StatCard = ({ title, value, change, isPositive, icon }: StatCardProps) => 
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm text-zinc-400">{title}</p>
-          <p className="text-2xl font-semibold mt-1">{value}</p>
+          <p className="text-2xl font-semibold mt-1 text-white">{value}</p>
           
           {change && (
             <p className={`text-xs mt-1 flex items-center ${isPositive ? 'text-crypto-success' : 'text-crypto-danger'}`}>
