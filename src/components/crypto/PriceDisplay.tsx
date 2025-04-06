@@ -20,7 +20,7 @@ const PriceDisplay: React.FC<PriceDisplayProps> = ({
   return (
     <div className="mt-4 space-y-1">
       <div className="flex items-baseline gap-2">
-        <span className="text-3xl font-bold text-white">₹{currentPrice}</span>
+        <span className="text-3xl font-bold text-white">${currentPrice}</span>
         <span className={cn(
           "text-sm font-medium",
           isPositiveChange ? "text-crypto-success" : "text-crypto-danger"
